@@ -16,5 +16,9 @@ router.get('/author', function(req, res) {  //introducido fase quiz-5-modificaci
   res.render('author', {} );
 });
 
+// Definición de rutas de /quizes
+router.get('/quizes',                      quizController.index);
+router.get('/quizes/:quizId(\\d+)',        quizController.show);
+router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
 module.exports = router;
