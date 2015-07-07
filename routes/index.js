@@ -8,13 +8,17 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
-router.get('/quizes/question', quizController.question); //introducido fase primera pregunta
-router.get('/quizes/answer',   quizController.answer);  //introducido fase primera pregunta
+//Autoload de comandos con :quizId
+router.param('quizId', quizController.load); //autoload :quizId
+
+
+//router.get('/quizes/question', quizController.question); //introducido fase primera pregunta-quitado en autoload
+//router.get('/quizes/answer',   quizController.answer);  //introducido fase primera pregunta-quitado en autoload
 
 router.get('/author', function(req, res) {  //introducido fase quiz-5-modificaciones finales, lineas 14-17
   //res.render('author', {layout:false} );
-  res.render('author', {} );
-});
+  res.render('author');
+  });-quitado en autoload
 
 // Definición de rutas de /quizes
 router.get('/quizes',                      quizController.index);
