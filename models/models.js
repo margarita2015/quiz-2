@@ -37,13 +37,11 @@ sequelize.sync().then(function()  {
 	//then(...) ejecuta el manejador una vez creada la tabla. Hemos cambiado success por then.
 	Quiz.count().then(function (count){
 		if(count === 0) { // la tabla se inicializa solo si está vacía
-          Quiz.create({ pregunta: 'Capital de Italia',
-                        respuesta: 'Roma'
-                     });
-          Quiz.create({ pregunta: 'Capital de Portugal',  //añadido quiz-9-2b-tema 7. Inicializar DB
-                        respuesta: 'Lisboa'
-                      })
-          .then(function(){console.log('Base de datos inicilizada')});
+          Quiz.bulkCreate(
+            [ { pregunta: 'Capital de Italia',   respuesta: 'Roma'},
+              { pregunta: 'Capital de Portugal', respuesta: 'Lisboa'}//añadido quiz-9-2b-tema 7. Inicializar DB
+            ]
+          ).then(function(){console.log('Base de datos inicilizada')});
 		};
     });
 });
