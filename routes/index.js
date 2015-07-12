@@ -14,7 +14,7 @@ router.param('quizId', quizController.load); //autoload :quizId
 
 router.get('/author', function(req, res) {  //introducido fase quiz-5-modificaciones finales, lineas 14-17
   //res.render('author', {layout:false} );
-  res.render('author');
+  res.render('author', {errors:[]});
   });
 
 // Definición de rutas de /quizes
