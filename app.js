@@ -23,7 +23,7 @@ app.use(partials()); //fase modulo-6 quiz-4 paso 2
    app.use(favicon(__dirname + '/public/favicon.ico')); //añadido para el fichero favicon-pag 28
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));  // true añadido consejo foro { extended: false }));
+app.use(bodyParser.urlencoded({ extended: true}));  // true añadido consejo foro { extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -46,7 +46,8 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
+            errors: []
         });
     });
 }
@@ -57,7 +58,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        errors: []
     });
 });
 
