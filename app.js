@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var partials = require('express-partials'); //fase modulo-6 quiz-4 paso 2
-
+var methodOverride = require('method-override');
 var routes = require('./routes/index');
 //var users = require('./routes/users');-eliminado-pag27
 
@@ -25,6 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));  // true añadido consejo foro { extended: false }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

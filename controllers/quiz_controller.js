@@ -15,13 +15,13 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizes
 exports.index = function(req, res) { 
 	
-//var search = '%'+req.query.search +'%';
-	  models.Quiz.findAll().then(   
+    //var search = '%'+req.query.search +'%';
+      	  models.Quiz.findAll.then(  
 		//models.Quiz.findAll({where: ["pregunta like ?", search], order: "pregunta ASC"}).then(
-		function(quizes) {
+		function (quizes) {
 		res.render('quizes/index.ejs', {quizes: quizes, errors: []});
 	}
-	).catch(function(error) {next(error)});
+	).catch(function (error) {next(error)});
   };
 
 
@@ -68,24 +68,77 @@ exports.answer = function(req, res) {
 	    if (errors)
 	    {
 
-	    	var i=0; var errores=new Array();
-	    	for (var prop in errors) errores[i++]={message: errors[prop]};
-	    	res.render('quizes/new', {quiz: quiz, errors: errores});	
-	   // }
-
+	        var i=0; var errores=new Array();
+	        for (var prop in errors) errores[i++]={message: errors[prop]};
+	        //if (errors.hasOwnProperty(prop))
+	        //console.log("Errors for field" + prop +":");
+	        //for (var i=0; i<errors[prop].length; ++i) {
+	        //console.log("\t" + errors[prop]);		
+	        res.render('quizes/new', {quiz: quiz, errors: errores});	
+	    //}
+                //}
 	// guarda en DB los campos pregunta y respuesta de quiz
 	//quiz
      //.validate()
      //.then(
-     	//function(err){
-     	//	if (err) {
-          //      res.render('quizes/new', {quiz: quiz, errors: err.errors});
+     	//function (err){
+     		//if (err) {
+            //res.render('quizes/new', {quiz: quiz, errors: err.errors});
      			//for (var prop in errors) errores[i++]={message: errors[prop]};	
      	    } else {
-     			quiz // save: guarda en DB campos pregunta y respuesta de quiz
-     		    .save({fields: ["pregunta", "respuesta", "tema"]})
-     		    .then(function(){ res.redirect('/quizes')})
+     	    	// save: guarda en DB campos pregunta y respuesta de quiz
+     			quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(function(){ res.redirect('/quizes')
+     		})
 	   //}	// res.redirect: Redireccion HTTP a la lista de preguntas
       }
-	//);
+	//)
 };
+
+// GET /quizes/:id/edit
+exports.edit = function(req, res) {
+ // Se crea una variable que contendrá el objeto quiz
+  var quiz = req.quiz;
+
+  // Se envía la vista edit que editará la pregunta actual
+  res.render('quizes/edit', {quiz: quiz, errors: [] });
+};
+
+// PUT /quizes/:id
+exports.update = function(req, res) {
+  // Se cargan los datos que llegan del body
+  req.quiz.pregunta = req.body.quiz.pregunta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+
+ // Para salvar el problema .then no existente en .validate
+  var errors = req.quiz.validate();
+
+  // Si hay errores, los tratamos
+  if (errors) {
+      // Se convierte errors en Array para poder tratarla con el código
+      // propuesta en la práctica
+      var errores = new Array();
+
+      // Recorremos el nuevo Array de errores
+      var i = 0;
+      for (var prop in errors) errores[i++] = {message: errors[prop]};
+      
+      // Se reenvía la vista new con los errores encontrados
+      res.render('quizes/new', {quiz: quiz, errors: errores});
+  } else {
+      // No hay error. Se guarda la pregunta en la DB
+      // y se muestra la lista de preguntas actualizada
+      req.quiz
+      .save({fields: ["pregunta", "respuesta"]})
+      .then( function() { res.redirect('/quizes')});
+  }  
+};
+
+
+
+
+
+
+
+
+
+
