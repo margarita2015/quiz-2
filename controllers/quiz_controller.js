@@ -15,8 +15,8 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizes
 exports.index = function(req, res) { 
 	
-    //var search = '%'+req.query.search +'%';
-      	  models.Quiz.findAll.then(  
+//var search = '%'+req.query.search +'%';
+      	  models.Quiz.findAll().then(  
 		//models.Quiz.findAll({where: ["pregunta like ?", search], order: "pregunta ASC"}).then(
 		function (quizes) {
 		res.render('quizes/index.ejs', {quizes: quizes, errors: []});
@@ -70,10 +70,6 @@ exports.answer = function(req, res) {
 
 	        var i=0; var errores=new Array();
 	        for (var prop in errors) errores[i++]={message: errors[prop]};
-	        //if (errors.hasOwnProperty(prop))
-	        //console.log("Errors for field" + prop +":");
-	        //for (var i=0; i<errors[prop].length; ++i) {
-	        //console.log("\t" + errors[prop]);		
 	        res.render('quizes/new', {quiz: quiz, errors: errores});	
 	    //}
                 //}
@@ -87,8 +83,8 @@ exports.answer = function(req, res) {
      			//for (var prop in errors) errores[i++]={message: errors[prop]};	
      	    } else {
      	    	// save: guarda en DB campos pregunta y respuesta de quiz
-     			quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(function(){ res.redirect('/quizes')
-     		})
+     			quiz.save({fields: ["pregunta", "respuesta", "tema"]})
+     			.then(function(){ res.redirect('/quizes')})
 	   //}	// res.redirect: Redireccion HTTP a la lista de preguntas
       }
 	//)
