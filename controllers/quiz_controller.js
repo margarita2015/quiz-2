@@ -85,9 +85,9 @@ exports.answer = function(req, res) {
      	    	// save: guarda en DB campos pregunta y respuesta de quiz
      			quiz.save({fields: ["pregunta", "respuesta", "tema"]})
      			.then(function(){ res.redirect('/quizes')})
-	   //}	// res.redirect: Redireccion HTTP a la lista de preguntas
-      }
-	//)
+	   }	// res.redirect: Redireccion HTTP a la lista de preguntas
+     // }
+	//).catch(function(error){next(error)});
 };
 
 // GET /quizes/:id/edit
@@ -129,7 +129,12 @@ exports.update = function(req, res) {
   }  
 };
 
-
+// DELETE /quizes/:id
+exports.destroy = function(req, res) {
+  req.quiz.destroy().then( function () {
+  	res.redirect('/quizes');
+  }).catch ( function(error){next(error)});
+};
 
 
 
