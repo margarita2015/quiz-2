@@ -54,7 +54,7 @@ exports.answer = function(req, res) {
 	// GET /quizes/new
 	exports.new = function(req, res) {
 		var quiz = models.Quiz.build( //crea objeto quiz
-			{pregunta: "Pregunta", respuesta: "Respuesta"}
+			{pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema" }
 			);
 
 		res.render('quizes/new', {quiz: quiz, errors: []});
@@ -104,6 +104,7 @@ exports.update = function(req, res) {
   // Se cargan los datos que llegan del body
   req.quiz.pregunta = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tema = req.body.quiz.tema;
 
  // Para salvar el problema .then no existente en .validate
   var errors = req.quiz.validate();
@@ -124,7 +125,7 @@ exports.update = function(req, res) {
       // No hay error. Se guarda la pregunta en la DB
       // y se muestra la lista de preguntas actualizada
       req.quiz
-      .save({fields: ["pregunta", "respuesta"]})
+      .save({fields: ["pregunta", "respuesta", "tema"]})
       .then( function() { res.redirect('/quizes')});
   }  
 };
