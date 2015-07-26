@@ -1,0 +1,8 @@
+Añadir comentario:<p>
+
+<form method="post" action="/quizes/<%= quizid %>/comments/">
+    <textarea class="estilotextarea" name="comment[texto]"
+    placeholder="Aquí su comentario (max 100 carácteres)" maxlength="100"></textarea><p>
+    <a href="/quizes/<%= quizid %>"><button type="button" name="button">Cancelar</button></a>
+    <button type="submit">Enviar</button>
+</form>
