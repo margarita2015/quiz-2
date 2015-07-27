@@ -6,11 +6,9 @@
 </form>
 <br>
 <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo Comentario</button></a></p>
-<br>
-<p id="comment-tit"><strong>Comentarios:</strong></p>
-<br>
-<div class="comment-block">
+
+<p><strong>Comentarios: </strong></p>
+
 <% for (index in quiz.Comments) { %>
-  <p id="comentarios">&#9658; <%= quiz.Comments[index].texto %></p>
+  <p>- <%= quiz.Comments[index].texto%></p>
 <% } %>
-</div>

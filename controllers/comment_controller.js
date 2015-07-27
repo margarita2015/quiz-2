@@ -12,18 +12,26 @@ exports.create = function(req, res) {
         QuizId: req.params.quizId
         });
 
-  comment
-  .validate()
-  .then(
-    function(err){
-      if (err) {
-        res.render('comments/new.ejs', {comment: comment, quizid: req.params.quizId, errors: err.errors});
+  //comment
+  //.validate()
+  //.then(
+  // function(err){
+  //   if (err) {
+  //      res.render('comments/new.ejs', {comment: comment, quizid: req.params.quizId, errors: err.errors});
+
+  var errors = comment.validate();
+  if (errors) {
+    var i = 0; 
+    var errores = new Array();  
+    for (var prop in errors) errores[i++] = {message: errors[prop]};
+    res.render('comments/new', {comment: comment, errors: errores});  
+
       } else {
         comment // save: guarda en DB campo texto de comment
         .save()
-        .then( function(){ res.redirect('/quizes/'+req.params.quizId)})
+        .then( function(){ res.redirect('/quizes/'+req.params.quizId)});
       }      // res.redirect: Redirección HTTP a lista de preguntas
-    }
-  ).catch(function(error){next(error)});
+    //}
+  //).catch(function(error){next(error)});
 
 };
