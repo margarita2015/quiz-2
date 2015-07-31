@@ -1,6 +1,6 @@
 //Definición del modelo comment con validación
 
-module.exports = function(sequelize, DataTypes){
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
     'Comment',
     { texto: {
