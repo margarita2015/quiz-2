@@ -25,11 +25,12 @@ app.use(partials()); //fase modulo-6 quiz-4 paso 2
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));  // true añadido consejo foro { extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(cookieParser('Quiz 2015'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session());
+
 
 //Helpers dinámicos
 app.use(function(req,res,next){
