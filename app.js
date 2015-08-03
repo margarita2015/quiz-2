@@ -27,7 +27,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));  // true añadido consejo foro { extended: false }));
 //app.use(cookieParser());
 app.use(cookieParser('Quiz 2015'));
-app.use(session());
+app.use(session({
+  secret:'Quiz 2015',
+  resave:true,
+  saveUninitialized:true
+}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
