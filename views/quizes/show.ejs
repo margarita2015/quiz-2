@@ -9,11 +9,11 @@
 
 <p><strong>Comentarios: </strong></p>
 
-<%for (index in quiz.Comments){%>
-  <% if(quiz.Comments[index].publicado || session.user){%>
-  <p>- <%= quiz.Comments[index].texto%>
-  <%if (session.user && !quiz.Comments[index].publicado){%>
-    <a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/publish">
+<%for(var i=0; i<quiz.comments.length; i++){%>
+  <% if(quiz.comments[index].publicado || session.user){%>
+  <p>- <%=quiz.comments.texto%></p>
+  <%if (session.user && !quiz.comments[index].publicado){%>
+    <a href="/quizes/<%= quiz.id %>/comments/<%= quiz.comments[index].id %>/publish">
     <button>Publicar</button></a>
         <%}%>
   </p>
